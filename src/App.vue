@@ -230,7 +230,7 @@ const navItems = [
   { href: '#home', label: 'Home' },
   { href: '#services', label: 'Services' },
   { href: '#about', label: 'About' },
-  { href: '#portfolio', label: 'Portfolio' },
+  { href: '#portfolio', label: 'Projects' },
   { href: '#contact', label: 'Contact' },
 ]
 

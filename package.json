@@ -2,7 +2,19 @@
   "name": "abdul-rehman-ai-portfolio",
   "version": "1.0.0",
   "private": true,
+  "description": "A sleek, responsive, and modern personal portfolio built with Vue.js and Vite. It features a premium dark theme, glassmorphism UI components, subtle CSS animations, and a fully functional contact form powered by Google Sheets.",
+  "homepage": "https://github.com/abdulrehman1610/MyPortfolio#readme",
+  "bugs": {
+    "url": "https://github.com/abdulrehman1610/MyPortfolio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdulrehman1610/MyPortfolio.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "vite.config.js",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",

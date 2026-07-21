@@ -419,6 +419,27 @@ const projects = [
     url: 'https://github.com/abdulrehman1610/FridayAI-Intelligent-Agent',
   },
   {
+    name: 'High-Performance-RAG-System',
+    type: 'Async Retrieval Pipeline',
+    description: 'Decoupled Retrieval-Augmented Generation system with a FastAPI backend, Streamlit frontend, and dual-adapter semantic caching.',
+    language: 'Python & Redis',
+    url: 'https://github.com/abdulrehman1610/high-performance-rag-system',
+  },
+  {
+    name: 'PromptGen-Structured-Builder',
+    type: 'Prompt Engineering IDE',
+    description: 'Full-stack structured prompt IDE enabling engineers to compose prompts as semantic blocks with live preview compiling.',
+    language: 'Vue & FastAPI',
+    url: 'https://prompt-gen-site.vercel.app',
+  },
+  {
+    name: 'ContentForge-AI-Copywriter',
+    type: 'AI Copywriting Studio',
+    description: 'AI copywriting studio offering structured templates tone/length controls powered by Groq Llama 3.3 70B inference.',
+    language: 'Python & Groq',
+    url: 'https://github.com/abdulrehman1610',
+  },
+  {
     name: 'spotify-clone',
     type: 'Music Interface',
     description: 'Responsive Spotify-inspired web app with dynamic music player interface and modern card-based layout.',

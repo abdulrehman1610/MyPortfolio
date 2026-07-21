@@ -924,6 +924,11 @@ textarea {
   appearance: none;
 }
 
+.form-select-minimal option {
+  background-color: var(--panel); /* Dark theme option background */
+  color: var(--text); /* White option text */
+}
+
 .form-textarea-minimal {
   min-height: 70px;
   resize: vertical;

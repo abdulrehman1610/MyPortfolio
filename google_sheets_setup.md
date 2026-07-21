@@ -44,6 +44,33 @@ function doPost (e) {
     
     sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
     
+    // --- INSTANT EMAIL NOTIFICATION ---
+    // Automatically sends an email alert to you when someone fills the form
+    MailApp.sendEmail({
+      to: "ar.rehman7240@gmail.com",
+      subject: "New Portfolio Project Lead from " + e.parameter['name'],
+      htmlBody: `
+        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+          <h2 style="color: #ff6a00; border-bottom: 2px solid #ff6a00; padding-bottom: 8px;">New Lead Received!</h2>
+          <p><strong>Name:</strong> ${e.parameter['name']}</p>
+          <p><strong>Email:</strong> ${e.parameter['email']}</p>
+          <p><strong>Service Type:</strong> ${e.parameter['service']}</p>
+          <p><strong>Project Details:</strong></p>
+          <blockquote style="background: #f9f9f9; border-left: 4px solid #ccc; padding: 10px 15px; margin: 10px 0;">
+            ${e.parameter['message']}
+          </blockquote>
+        </div>
+      `
+    });
+
+    // --- INSTANT TELEGRAM TEXT ALERTS (OPTIONAL) ---
+    // If you want free text messages on Telegram:
+    // 1. Create a Bot via BotFather on Telegram to get a Bot Token.
+    // 2. Get your User Chat ID via @userinfobot.
+    // 3. Uncomment the line below and replace <BOT_TOKEN> and <CHAT_ID>:
+    // const telegramMsg = "New Lead: " + e.parameter['name'] + " (" + e.parameter['email'] + ") - " + e.parameter['service'] + "\nMessage: " + e.parameter['message'];
+    // UrlFetchApp.fetch("https://api.telegram.org/bot<BOT_TOKEN>/sendMessage?chat_id=<CHAT_ID>&text=" + encodeURIComponent(telegramMsg));
+    
     return ContentService
       .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
       .setMimeType(ContentService.MimeType.JSON);

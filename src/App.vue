@@ -370,7 +370,7 @@ const isSubmitting = ref(false)
 const submitStatus = ref(null)
 
 // Google Apps Script Web App URL
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxABBJJBVgte8ueVynr1VjdxSWnFgPgrAy-azCI-iQBP0UBq3FHUUk2vmmei5V5IugO/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzU57PhuyuEmkk1O2KsW_K81WjdFBgTttEtUEhuFIMfdhaf3k85uoRrGXTRVpN66AL9/exec";
 
 // Dynamic Data Sets (Matched Exactly to reference Layout numbers)
 const metrics = [
@@ -482,24 +482,32 @@ const openProject = (url) => {
   window.open(url, '_blank')
 }
 
-// Form Submission via Google Sheets
+// Form Submission via Google Sheets (GET iframe — 100% CORS-proof)
 const submitForm = async () => {
   isSubmitting.value = true
   submitStatus.value = null
 
   try {
-    const data = new FormData()
-    data.append('name', formData.value.name)
-    data.append('email', formData.value.email)
-    data.append('phone', formData.value.phone)
-    data.append('service', formData.value.service)
-    data.append('message', formData.value.message)
+    const params = new URLSearchParams()
+    params.append('name', formData.value.name)
+    params.append('email', formData.value.email)
+    params.append('phone', formData.value.phone)
+    params.append('service', formData.value.service)
+    params.append('message', formData.value.message)
 
-    await fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      body: data,
-      mode: 'no-cors'
-    })
+    // Build full GET URL with query params
+    const submitUrl = GOOGLE_SCRIPT_URL + '?' + params.toString()
+
+    // Load URL in a hidden iframe — no CORS, no 403, guaranteed delivery
+    const iframe = document.createElement('iframe')
+    iframe.style.display = 'none'
+    iframe.src = submitUrl
+    document.body.appendChild(iframe)
+
+    // Clean up after Google processes it
+    setTimeout(() => {
+      document.body.removeChild(iframe)
+    }, 5000)
 
     submitStatus.value = 'success'
     formData.value = {

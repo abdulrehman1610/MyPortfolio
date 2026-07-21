@@ -1009,6 +1009,17 @@ textarea {
   border-color: rgba(255, 106, 0, 0.4);
 }
 
+.contact-svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.contact-info-card:hover .contact-svg {
+  transform: scale(1.1);
+}
+
 .contact-card-details {
   display: flex;
   flex-direction: column;

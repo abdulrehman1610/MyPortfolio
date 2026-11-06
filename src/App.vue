@@ -97,7 +97,7 @@
         <article 
           v-for="(project, index) in projects" 
           :key="project.name" 
-          class="project-card" data-swarm
+          class="project-card" data-swarm :style="{ '--card-stagger': `${(index % 3) * 110 + Math.floor(index / 3) * 70}ms` }" @mousemove="onCardMouseMove" @mouseleave="onCardMouseLeave"
           @click="openProject(project.url)"
         >
           <div class="project-mockup">
@@ -107,7 +107,7 @@
               <p>{{ truncateDesc(project.description) }}</p>
             </div>
             <div class="project-mockup-overlay">
-              <span>Visit Repository ⟶</span>
+              <span class="project-overlay-cta">Visit Repository <span class="project-overlay-arrow">⟶</span></span>
             </div>
           </div>
 
@@ -356,7 +356,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import resumeUrl from '../CV.docx'
 import SwarmIntro from './components/SwarmIntro.vue'
 
@@ -483,6 +483,66 @@ const formatProjectTitle = (name) => {
 const openProject = (url) => {
   window.open(url, '_blank')
 }
+
+// 3D Card Tilt & Glare Hover handlers for .project-card
+const onCardMouseMove = (event) => {
+  const card = event.currentTarget
+  const mockup = card.querySelector('.project-mockup')
+  if (!mockup) return
+  const rect = mockup.getBoundingClientRect()
+  const px = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width))
+  const py = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height))
+  const rotateX = ((0.5 - py) * 14).toFixed(2)
+  const rotateY = ((px - 0.5) * 14).toFixed(2)
+
+  mockup.style.setProperty('--rx', `${rotateX}deg`)
+  mockup.style.setProperty('--ry', `${rotateY}deg`)
+  mockup.style.setProperty('--glare-x', `${(px * 100).toFixed(1)}%`)
+  mockup.style.setProperty('--glare-y', `${(py * 100).toFixed(1)}%`)
+  mockup.style.setProperty('--glare-opacity', '1')
+  mockup.classList.add('is-tilting')
+}
+
+const onCardMouseLeave = (event) => {
+  const card = event.currentTarget
+  const mockup = card.querySelector('.project-mockup')
+  if (!mockup) return
+  mockup.style.setProperty('--rx', '0deg')
+  mockup.style.setProperty('--ry', '0deg')
+  mockup.style.setProperty('--glare-opacity', '0')
+  mockup.classList.remove('is-tilting')
+}
+
+// Scroll-Reveal Stagger (IntersectionObserver) for .project-card
+let projectObserver = null
+
+onMounted(() => {
+  if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return
+  const cards = Array.from(document.querySelectorAll('.project-card'))
+  cards.forEach((card) => card.classList.add('card-reveal-ready'))
+
+  projectObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed')
+        } else if (entry.boundingClientRect.top > 0) {
+          entry.target.classList.remove('is-revealed')
+        }
+      })
+    },
+    { threshold: 0.14, rootMargin: '0px 0px -40px 0px' }
+  )
+
+  cards.forEach((card) => projectObserver.observe(card))
+})
+
+onBeforeUnmount(() => {
+  if (projectObserver) {
+    projectObserver.disconnect()
+    projectObserver = null
+  }
+})
 
 // Form Submission via Google Sheets (GET iframe — 100% CORS-proof)
 const submitForm = async () => {

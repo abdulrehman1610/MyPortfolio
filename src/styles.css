@@ -567,6 +567,67 @@ textarea {
   box-shadow: 0 15px 35px rgba(255, 106, 0, 0.1);
 }
 
+.project-card.card-reveal-ready {
+  opacity: 0;
+  transform: translateY(38px) scale(0.96);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--card-stagger, 0ms),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--card-stagger, 0ms);
+  will-change: opacity, transform;
+}
+
+.project-card.card-reveal-ready.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.project-mockup::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    320px circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.22),
+    rgba(255, 106, 0, 0.14) 38%,
+    transparent 70%
+  );
+  opacity: var(--glare-opacity, 0);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.project-card:hover .project-mockup.is-tilting,
+.project-mockup.is-tilting {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-5px) scale(1.02);
+  transition: transform 0.1s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+  border-color: rgba(255, 106, 0, 0.45);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), 0 10px 30px rgba(255, 106, 0, 0.16);
+}
+
+.project-overlay-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateY(14px);
+  opacity: 0;
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+}
+
+.project-overlay-arrow {
+  display: inline-block;
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card:hover .project-overlay-cta {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.project-card:hover .project-overlay-arrow {
+  transform: translateX(6px);
+}
+
 .project-card:hover .project-mockup-overlay {
   opacity: 1;
 }

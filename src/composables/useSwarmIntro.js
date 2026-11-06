@@ -299,10 +299,6 @@ export function useSwarmIntro() {
     return { x, y, width, height, rect, isFixed }
   }
 
-  /**
-   * Groups all [data-swarm] elements into sequential Portions so the agents
-   * completely finish constructing one portion in detail before moving to the next.
-   */
   const groupTargetsIntoPortions = (targets) => {
     const portionDefs = [
       {
@@ -408,10 +404,6 @@ export function useSwarmIntro() {
     }
   }
 
-  /**
-   * Finds 1-2 meaningful child elements inside a target card/block so the agent
-   * can trace inner sub-details before revealing the element.
-   */
   const getDetailSubElements = (targetEl) => {
     if (!targetEl || !targetEl.children || targetEl.children.length === 0) {
       return []
@@ -434,7 +426,6 @@ export function useSwarmIntro() {
     restoreScrollLock()
 
     try {
-      // Respect prefers-reduced-motion
       const prefersReducedMotion =
         window.matchMedia &&
         window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -444,7 +435,6 @@ export function useSwarmIntro() {
         return
       }
 
-      // Check sessionStorage if PLAY_ONCE_PER_SESSION is enabled and not a manual replay
       if (PLAY_ONCE_PER_SESSION && !isReplay) {
         try {
           if (window.sessionStorage.getItem(SESSION_STORAGE_KEY) === '1') {
@@ -473,11 +463,9 @@ export function useSwarmIntro() {
       isPlaying.value = true
       isFinished.value = false
 
-      // Scroll to top before starting so coordinates & viewport begin cleanly at top
       window.scrollTo({ top: 0, behavior: 'auto' })
       lockScroll()
 
-      // Save original inline styles and hide targets immediately, then enable .5s fade-in transition
       targets.forEach((el) => {
         originalTargetStyles.set(el, {
           opacity: el.style.opacity,
@@ -487,7 +475,6 @@ export function useSwarmIntro() {
         el.style.opacity = '0'
       })
 
-      // Force reflow so opacity: 0 is committed before setting transition
       void document.body.offsetHeight
 
       targets.forEach((el) => {
@@ -498,7 +485,6 @@ export function useSwarmIntro() {
       const vw = window.innerWidth || 1200
       const vh = window.innerHeight || 800
 
-      // Create Agent 1 .. Agent 6 cursors
       const cursors = NAMES.map((name, index) => {
         const color = COLORS[index % COLORS.length]
         const startX = Math.round((vw * (index + 1)) / (NAMES.length + 1))
@@ -508,36 +494,29 @@ export function useSwarmIntro() {
         return { name, color, el, setTask, index }
       })
 
-      // Group targets into sequential portions
       const portions = groupTargetsIntoPortions(targets)
       totalPortions.value = portions.length
 
       await wait(100)
       if (runId !== activeRunId) return
 
-      // Build portion by portion sequentially!
       for (let pIdx = 0; pIdx < portions.length; pIdx++) {
         if (runId !== activeRunId) return
         const portion = portions[pIdx]
         currentPortionIndex.value = pIdx + 1
         currentPortionLabel.value = portion.label
 
-        // 1. Scroll the entire swarm's attention to this portion first
         await scrollPortionIntoView(portion.elements, runId)
         if (runId !== activeRunId) return
 
-        // Update overlay height in case layout expanded
         overlay.style.height = `${getDocumentHeight()}px`
 
-        // Shared queue for ONLY this portion
         const portionQueue = [...portion.elements]
 
-        // Worker for each agent within this portion
         const buildElementInDetail = async (cursor, targetEl) => {
           const tagLabel = getElementTagLabel(targetEl)
           const initial = measureElementInDoc(targetEl)
 
-          // Ensure individual element is inside current viewport if portion is tall
           if (!initial.isFixed) {
             const vhNow = window.innerHeight || 800
             const curTop = window.scrollY || 0
@@ -579,7 +558,7 @@ export function useSwarmIntro() {
           await wait(300)
           if (runId !== activeRunId) return
 
-          // Step C: Inner sub-element detailing pass (if card/block has internal parts)
+          // Step C: Inner sub-element detailing pass
           const subEls = getDetailSubElements(targetEl)
           const createdSubBoxes = []
           for (const subEl of subEls) {
@@ -630,11 +609,9 @@ export function useSwarmIntro() {
             })
           })
 
-          // Small random delay before next element in this portion
           await wait(55 + Math.floor(Math.random() * 80))
         }
 
-        // Assist choreography when a portion has fewer elements than agents
         const assistOnPortion = async (cursor) => {
           const refEl =
             portion.elements[cursor.index % portion.elements.length]
@@ -667,17 +644,14 @@ export function useSwarmIntro() {
           }
         })
 
-        // Wait until ALL agents finish this portion before moving to the next portion
         await Promise.all(portionWorkers)
         if (runId !== activeRunId) return
 
-        // Brief pause to admire the finished portion before moving on
         await wait(160)
       }
 
       if (runId !== activeRunId) return
 
-      // Fade out all agent cursors
       cursors.forEach((c) => {
         c.setTask('done ✓')
         c.el.style.opacity = '0'
@@ -686,7 +660,6 @@ export function useSwarmIntro() {
       await wait(450)
       if (runId !== activeRunId) return
 
-      // Smoothly return to top of page
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
       removeOverlay()
@@ -696,7 +669,6 @@ export function useSwarmIntro() {
       isFinished.value = true
       currentPortionLabel.value = ''
     } catch (err) {
-      // Never block the app: if anything fails, reveal the page normally
       fullCleanup(true)
     }
   }

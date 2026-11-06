@@ -2,11 +2,11 @@
   <div class="site-wrapper">
     <!-- Top Header Bar (Exact Match) -->
     <header class="site-header">
-      <div class="header-logo">
+      <div class="header-logo" data-swarm>
         <strong>AI Engineer</strong>
         <span>Automation Creator</span>
       </div>
-      <div class="header-status">
+      <div class="header-status" data-swarm>
         Available for Freelance
         <svg class="cross-star" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
@@ -17,10 +17,10 @@
     <!-- Hero Section (Absolute Center Portrait & 2-Column Content Grid) -->
     <section id="home" class="hero-section">
       <!-- Big Outlined Background Text -->
-      <div class="hero-bg-text" aria-hidden="true">PORTFOLIO</div>
+      <div class="hero-bg-text" aria-hidden="true" data-swarm>PORTFOLIO</div>
 
       <!-- Center Portrait cutout with fade linear gradient mask -->
-      <div class="hero-portrait-wrapper">
+      <div class="hero-portrait-wrapper" data-swarm>
         <picture>
           <source media="(max-width: 768px)" srcset="/Everypost.jpg" />
           <img src="/01-Everypost-removebg-preview (1).png" alt="Muhammad Abdul Rehman Portrait" class="hero-portrait-img" />
@@ -31,23 +31,23 @@
       <div class="hero-grid">
         <!-- Hero Left Copy -->
         <div class="hero-copy">
-          <span class="hero-hello-cursive">Hello, I'm</span>
-          <h1>Abdul<br>Rehman</h1>
+          <span class="hero-hello-cursive" data-swarm>Hello, I'm</span>
+          <h1 data-swarm>Abdul<br>Rehman</h1>
           
-          <div class="hero-title-highlight">
+          <div class="hero-title-highlight" data-swarm>
             AI Engineer &amp; Software Automator
           </div>
           
-          <p class="bio">
+          <p class="bio" data-swarm>
             I design and build stylish, user-focused intelligence pipelines and automation workflows that combine data structure with agentic systems. Passionate about local LLMs, retrieval search architectures, and details that make a difference.
           </p>
 
           <div class="hero-actions">
-            <a class="btn-solid" href="#contact">Hire Me</a>
-            <a class="btn-outline" :href="resumeUrl" download="Abdul_Rehman_CV.docx">Download CV</a>
+            <a class="btn-solid" href="#contact" data-swarm>Hire Me</a>
+            <a class="btn-outline" :href="resumeUrl" download="Abdul_Rehman_CV.docx" data-swarm>Download CV</a>
           </div>
 
-          <div class="hero-badge-tag">
+          <div class="hero-badge-tag" data-swarm>
             <span class="hero-badge-tag-icon">
               <svg class="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <circle cx="12" cy="12" r="10" />
@@ -61,7 +61,7 @@
 
         <!-- Hero Right Stats & Badges -->
         <div class="hero-sidebar">
-          <div class="circle-workflow-badge">
+          <div class="circle-workflow-badge" data-swarm>
             <div class="circle-badge-icon">
               <svg class="cross-star" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
@@ -71,7 +71,7 @@
           </div>
 
           <div class="hero-stats" aria-label="Professional metrics">
-            <div v-for="metric in metrics" :key="metric.value" class="stat-item">
+            <div v-for="metric in metrics" :key="metric.value" class="stat-item" data-swarm>
               <strong class="stat-num">{{ metric.value }}</strong>
               <div class="stat-label-wrap">
                 <span class="stat-label-line1">{{ metric.label1 }}</span>
@@ -86,9 +86,9 @@
     <!-- Selected Projects Section -->
     <section id="portfolio" class="projects-section">
       <div class="section-header">
-        <h2>Selected Projects</h2>
-        <div class="section-header-line"></div>
-        <a href="https://github.com/abdulrehman1610" target="_blank" rel="noreferrer" class="section-header-link">
+        <h2 data-swarm>Selected Projects</h2>
+        <div class="section-header-line" data-swarm></div>
+        <a href="https://github.com/abdulrehman1610" target="_blank" rel="noreferrer" class="section-header-link" data-swarm>
           View All Projects ⟶
         </a>
       </div>
@@ -97,7 +97,7 @@
         <article 
           v-for="(project, index) in projects" 
           :key="project.name" 
-          class="project-card"
+          class="project-card" data-swarm
           @click="openProject(project.url)"
         >
           <div class="project-mockup">
@@ -126,7 +126,7 @@
     <section id="about" class="info-section">
       <!-- Column 1: Education & Skills -->
       <div class="info-column">
-        <h3 class="info-column-title">
+        <h3 class="info-column-title" data-swarm>
           <svg class="cross-star" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
           </svg>
@@ -135,8 +135,8 @@
 
         <!-- Education timeline -->
         <div class="edu-block">
-          <span class="edu-title">Education</span>
-          <div class="edu-card">
+          <span class="edu-title" data-swarm>Education</span>
+          <div class="edu-card" data-swarm>
             <h4>B.Sc. in Computer Science</h4>
             <p>The Superior University, Lahore</p>
             <span class="edu-year">2024 - 2028</span>
@@ -145,9 +145,9 @@
 
         <!-- Skills list -->
         <div>
-          <span class="skills-title">Skills</span>
+          <span class="skills-title" data-swarm>Skills</span>
           <div class="skills-tags-wrap">
-            <span v-for="skill in skills" :key="skill.name" class="skill-tag">
+            <span v-for="skill in skills" :key="skill.name" class="skill-tag" data-swarm>
               {{ skill.name }}
             </span>
           </div>
@@ -156,7 +156,7 @@
 
       <!-- Column 2: Work Process (Exact Match) -->
       <div class="info-column">
-        <h3 class="info-column-title">
+        <h3 class="info-column-title" data-swarm>
           <svg class="cross-star" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
           </svg>
@@ -164,7 +164,7 @@
         </h3>
 
         <div class="process-list">
-          <div v-for="step in steps" :key="step.num" class="process-item">
+          <div v-for="step in steps" :key="step.num" class="process-item" data-swarm>
             <span class="process-num">{{ step.num }}</span>
             <div class="process-icon-box">{{ step.icon }}</div>
             <div class="process-info">
@@ -177,7 +177,7 @@
 
       <!-- Column 3: Orange Quote Card (Exact Match) -->
       <div class="info-column">
-        <div class="quote-card">
+        <div class="quote-card" data-swarm>
           <div class="quote-icon">“</div>
           <p class="quote-text">
             Building AI isn't just about training models, it's about engineering systems that reason and automate value.
@@ -200,19 +200,19 @@
       <div class="footer-grid">
         <!-- Left Side: Form Inquiries -->
         <div class="footer-left">
-          <h3 class="footer-title">
+          <h3 class="footer-title" data-swarm>
             Let's Work Together
             <svg class="cross-star large" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
             </svg>
           </h3>
-          <p class="desc">
+          <p class="desc" data-swarm>
             I'm currently open for new projects and collaborations. Let's create something amazing that drives results.
           </p>
 
           <form class="footer-contact-form" @submit.prevent="submitForm">
             <!-- Name Input -->
-            <div class="form-group-minimal">
+            <div class="form-group-minimal" data-swarm>
               <label class="form-label-minimal" for="client-name">Your Name</label>
               <input 
                 id="client-name"
@@ -225,7 +225,7 @@
             </div>
 
             <!-- Email Input -->
-            <div class="form-group-minimal">
+            <div class="form-group-minimal" data-swarm>
               <label class="form-label-minimal" for="client-email">Email Address</label>
               <input 
                 id="client-email"
@@ -238,7 +238,7 @@
             </div>
 
             <!-- Service Select Dropdown -->
-            <div class="form-group-minimal full-width">
+            <div class="form-group-minimal full-width" data-swarm>
               <label class="form-label-minimal" for="service-select">Workspace Project Type</label>
               <select 
                 id="service-select"
@@ -255,7 +255,7 @@
             </div>
 
             <!-- Message Detail -->
-            <div class="form-group-minimal full-width">
+            <div class="form-group-minimal full-width" data-swarm>
               <label class="form-label-minimal" for="project-message">Project Goals &amp; Target Outputs</label>
               <textarea 
                 id="project-message"
@@ -277,7 +277,7 @@
             <!-- Submit Button -->
             <button 
               type="submit" 
-              class="btn-solid form-submit-btn-minimal"
+              class="btn-solid form-submit-btn-minimal" data-swarm
               :disabled="isSubmitting"
             >
               {{ isSubmitting ? 'Sending Request...' : 'Send Message' }}
@@ -288,7 +288,7 @@
         <!-- Right Side: Contact info Cards -->
         <div class="footer-right">
           <div class="contact-info-list" aria-label="Contact information details">
-            <a href="mailto:ar.rehman7240@gmail.com" class="contact-info-card">
+            <a href="mailto:ar.rehman7240@gmail.com" class="contact-info-card" data-swarm>
               <div class="contact-card-icon">
                 <svg class="contact-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -301,7 +301,7 @@
               </div>
             </a>
 
-            <a href="https://github.com/abdulrehman1610" target="_blank" rel="noreferrer" class="contact-info-card">
+            <a href="https://github.com/abdulrehman1610" target="_blank" rel="noreferrer" class="contact-info-card" data-swarm>
               <div class="contact-card-icon">
                 <svg class="contact-svg" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -313,7 +313,7 @@
               </div>
             </a>
 
-            <a href="https://www.linkedin.com/in/muhammad-abdul-rehman-69b23b380/" target="_blank" rel="noreferrer" class="contact-info-card">
+            <a href="https://www.linkedin.com/in/muhammad-abdul-rehman-69b23b380/" target="_blank" rel="noreferrer" class="contact-info-card" data-swarm>
               <div class="contact-card-icon">
                 <svg class="contact-svg" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
@@ -325,7 +325,7 @@
               </div>
             </a>
 
-            <div class="contact-info-card">
+            <div class="contact-info-card" data-swarm>
               <div class="contact-card-icon">
                 <svg class="contact-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
@@ -342,7 +342,7 @@
       </div>
 
       <!-- Bottom trademark footer -->
-      <div class="footer-bottom">
+      <div class="footer-bottom" data-swarm>
         <p>© {{ new Date().getFullYear() }} Muhammad Abdul Rehman. All rights reserved.</p>
         <div class="footer-bottom-links">
           <a href="https://github.com/abdulrehman1610" target="_blank" rel="noreferrer">GitHub</a>
@@ -351,12 +351,14 @@
         </div>
       </div>
     </footer>
+    <SwarmIntro />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import resumeUrl from '../CV.docx'
+import SwarmIntro from './components/SwarmIntro.vue'
 
 // Contact form reactive bindings
 const formData = ref({
